@@ -9,7 +9,7 @@ load_dotenv()
 
 app = FastAPI(title="Universal Flexible Backend")
 
-MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017/")
+MONGO_URL = "mongodb+srv://asbah1234:asbah1234@cluster0.vx5ta.mongodb.net/?appName=Cluster0"
 
 try:
     client = MongoClient(MONGO_URL)
