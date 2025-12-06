@@ -1,11 +1,23 @@
+import os
 from fastapi import FastAPI, HTTPException, Body, Query, Response, status
 from pymongo import MongoClient
 from bson import ObjectId
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="Universal Flexible Backend")
 
-client = MongoClient("mongodb://localhost:27017/")
+MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017/")
+
+try:
+    client = MongoClient(MONGO_URL)
+    client.admin.command('ping')
+    print(f"Connected to MongoDB at: {MONGO_URL[:10]}...") 
+except Exception as e:
+    print(f"Connection Error: {e}")
+
 db = client["urdu_novels_db"]
 
 def get_filter(col, doc_id_str):
